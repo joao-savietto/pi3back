@@ -1,29 +1,65 @@
+version: '3.8'
+
 services:
-  web:
-    build:
-      context: .
-      dockerfile: Dockerfile
-    command: python manage.py runserver 0.0.0.0:8000
-    volumes:
-      - .:/app
+  redis:
+    image: redis:alpine
     ports:
-      - 8000:8000
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+
+  web:
+    build: .
+    command: >
+      bash -c "python manage.py migrate &&
+               python manage.py runserver 0.0.0.0:8000"
+    volumes:
+      - .:/code
+    ports:
+      - "8000:8000"
     depends_on:
       - db
-    env_file:
-      - .env
+      - redis
+    environment:
+      - CELERY_BROKER_URL=redis://redis:6379/0
+      - CELERY_RESULT_BACKEND=redis://redis:6379/0
+
+  celery:
+    build: .
+    command: celery -A pi3back worker --loglevel=info
+    volumes:
+      - .:/code
+    depends_on:
+      - db
+      - redis
+    environment:
+      - CELERY_BROKER_URL=redis://redis:6379/0
+      - CELERY_RESULT_BACKEND=redis://redis:6379/0
+
+  celery-beat:
+    build: .
+    command: celery -A pi3back beat --loglevel=info
+    volumes:
+      - .:/code
+    depends_on:
+      - db
+      - redis
+    environment:
+      - CELERY_BROKER_URL=redis://redis:6379/0
+      - CELERY_RESULT_BACKEND=redis://redis:6379/0
 
   db:
-    image: mysql:8.0.36-debian
-    volumes:
-      - db_data:/var/lib/mysql
-      - ./init-db.sh:/docker-entrypoint-initdb.d/init-db.sh
-    env_file:
-      - .env
+    image: mysql:8.0
+    environment:
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
     ports:
-      - 3306:3306
-    command: ["./docker-entrypoint-initdb.d/init-db.sh"]
-    platform: linux/amd64
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
 
 volumes:
-  db_data:
+  mysql_data:
+  redis_data:
