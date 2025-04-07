@@ -4,7 +4,7 @@ from django.contrib.auth import get_user_model
 from rest_framework import status
 
 
-from pi3back.occurrences.api.filters import UserFilter
+from pi3back.core.api.filters import UserFilter
 
 from .serializers import CreateUserSerializer, UpdateUserSerializer, GetUserSerializer
 from ...shared.permissions import IsAuthenticated

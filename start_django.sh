@@ -1,6 +1,10 @@
 #!/bin/bash
 
 set -e
+conda init
+source ~/.bashrc
+
+conda activate pi3
 
 wait_for_db() {
   local db_host="$1"
@@ -44,6 +48,7 @@ if [ -z "$args" ]; then
 fi
 
 # reload bashrc
-python manage.py migrate
-source ~/.bashrc
+if [ "${IS_DJANGO_CONTAINER:-false}" = "true" ]; then
+    python manage.py migrate
+fi
 exec $args

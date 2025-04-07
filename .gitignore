@@ -3,3 +3,4 @@
 .env
 *.ipynb
 refactor.py
+celerybeat-schedule*

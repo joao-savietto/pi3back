@@ -29,12 +29,10 @@ RUN apt-get update && apt-get install -y \
 COPY requirements.txt /app/
 
 # Create a Conda environment and install dependencies
-RUN conda create -n myenv python=3.11.9 && \
-    echo "source activate myenv" > ~/.bashrc && \
-    /opt/conda/envs/myenv/bin/pip install --upgrade pip && \
-    /opt/conda/envs/myenv/bin/pip install -r requirements.txt
-
-RUN conda install c-y onda-forge::python-chromedriver-binary 
+RUN conda create -n pi3 python=3.11.9 -y && \
+    conda run -n pi3 pip install --upgrade pip && \
+    conda run -n pi3 pip install -r requirements.txt && \
+    conda install -n pi3 conda-forge::python-chromedriver-binary
 
 # Set the entrypoint script
 ENTRYPOINT ["/app/start_django.sh"]

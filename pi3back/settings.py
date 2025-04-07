@@ -35,7 +35,7 @@ DEBUG = True
 
 DEFAULT_LINKEDIN_USER =  env("DJANGO_ALLOWED_HOSTS", default=["*"])
 
-if env('ENVIROMENT') == 'production':
+if env('ENVIRONMENT') == 'production':
     ALLOWED_HOSTS = env.list("DJANGO_ALLOWED_HOSTS", default=["*"])
 else:
     ALLOWED_HOSTS = ['*']
