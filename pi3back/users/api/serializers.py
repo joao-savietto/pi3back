@@ -4,53 +4,42 @@ from django.contrib.auth import get_user_model
 User = get_user_model()
 
 
-class CommonUserValidation:
-    def validate(self, data):
-        roles = [
-            data.get("is_professor", False),
-            data.get("is_aluno", False),
-            data.get("is_responsavel", False),
-        ]
-        if sum(roles) > 1:
-            raise serializers.ValidationError("A user cannot have more than one role.")
-        return data
-
-
-class CreateUserSerializer(CommonUserValidation, serializers.ModelSerializer):
-
-    password = serializers.CharField(write_only=True)
-
+class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = [
-            "id",
-            "nome",
-            "email",
-            "is_professor",
-            "is_aluno",
-            "is_responsavel",
-            "password",
-            "responsavel",
-            "linkedin_user",
-            "linkedin_password",
+            'id',
+            'nome',
+            'email',
+            'linkedin_user',
+            'linkedin_password'
         ]
+        extra_kwargs = {
+            'password': {'write_only': True},
+            'linkedin_user': {'required': False},
+            'linkedin_password': {'required': False}
+        }
 
     def create(self, validated_data):
-        user = User(**validated_data)
-        user.set_password(validated_data["password"])
-        user.save()
+        user = User.objects.create_user(
+            email=validated_data['email'],
+            nome=validated_data['nome'],
+            password=validated_data['password']
+        )
         return user
 
-
-class UpdateUserSerializer(CommonUserValidation, serializers.ModelSerializer):
-
-    class Meta:
-        model = User
-        fields = "__all__"
-
-
-class GetUserSerializer(CommonUserValidation, serializers.ModelSerializer):
-
-    class Meta:
-        model = User
-        fields = "__all__"
+    def update(self, instance, validated_data):
+        instance.email = validated_data.get('email', instance.email)
+        instance.nome = validated_data.get('nome', instance.nome)
+        instance.linkedin_user = validated_data.get(
+            'linkedin_user', instance.linkedin_user
+        )
+        instance.linkedin_password = validated_data.get(
+            'linkedin_password', instance.linkedin_password
+        )
+        
+        if 'password' in validated_data:
+            instance.set_password(validated_data['password'])
+        
+        instance.save()
+        return instance
