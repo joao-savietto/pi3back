@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from pi3back.core.models.applicant import Applicant
+from pi3back.core.models import Applicant, SelectionProcess
 
 
 class ApplicantSerializer(serializers.ModelSerializer):
@@ -28,3 +28,17 @@ class ApplicantSerializer(serializers.ModelSerializer):
             'created_at': {'read_only': True},
             'updated_at': {'read_only': True}
         }
+
+
+class SelectionProcessSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = SelectionProcess
+        fields = [
+            'id',
+            'description',
+            'created_at',
+            'ended_at',
+            'is_ended',
+            'category'
+        ]
+        read_only_fields = ['created_at']
