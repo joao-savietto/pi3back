@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser, BaseUserManager
 
+
 class CustomUserManager(BaseUserManager):
     def create_user(self, email, password=None, **extra_fields):
         if not email:
@@ -15,13 +16,16 @@ class CustomUserManager(BaseUserManager):
         extra_fields.setdefault('is_staff', True)
         extra_fields.setdefault('is_superuser', True)
         return self.create_user(email, password, **extra_fields)
-    
+
+
 class User(AbstractUser):
 
     username = None
 
     nome = models.CharField(max_length=255)
     email = models.EmailField(unique=True, max_length=255)
+    linkedin_user = models.CharField(max_length=255, blank=True, null=True)
+    linkedin_password = models.CharField(max_length=255, blank=True, null=True)
 
     objects = CustomUserManager()
 
@@ -30,4 +34,3 @@ class User(AbstractUser):
 
     def __str__(self):
         return self.email
-    
