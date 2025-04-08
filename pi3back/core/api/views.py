@@ -1,7 +1,7 @@
 from rest_framework import viewsets
 from django.contrib.auth import get_user_model
-from pi3back.core.models.linkedin_profile import LinkedInProfile
-from pi3back.core.api.serializers import LinkedInProfileSerializer
+from pi3back.core.models.applicant import Applicant
+from pi3back.core.api.serializers import ApplicantSerializer
 from drf_spectacular.utils import (
     extend_schema_view,
     extend_schema
@@ -12,22 +12,22 @@ User = get_user_model()
 
 @extend_schema_view(
     list=extend_schema(
-        description='Lista todos os perfis do LinkedIn cadastrados'
+        description='Lista todos os candidatos cadastrados'
     ),
     retrieve=extend_schema(
-        description='Retorna os detalhes de um perfil específico do LinkedIn'
+        description='Retorna os detalhes de um candidato específico'
     ),
     create=extend_schema(
-        description='Cria um novo perfil do LinkedIn'
+        description='Cria um novo candidato'
     ),
     partial_update=extend_schema(
-        description='Atualiza parcialmente um perfil do LinkedIn'
+        description='Atualiza parcialmente um candidato'
     ),
     destroy=extend_schema(
-        description='Remove um perfil do LinkedIn'
+        description='Remove um candidato'
     )
 )
-class LinkedInProfileViewSet(viewsets.ModelViewSet):
-    queryset = LinkedInProfile.objects.all()
-    serializer_class = LinkedInProfileSerializer
+class ApplicantViewSet(viewsets.ModelViewSet):
+    queryset = Applicant.objects.all()
+    serializer_class = ApplicantSerializer
     http_method_names = ['get', 'post', 'patch', 'delete']

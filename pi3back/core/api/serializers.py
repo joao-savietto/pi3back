@@ -1,10 +1,10 @@
 from rest_framework import serializers
-from pi3back.core.models.linkedin_profile import LinkedInProfile
+from pi3back.core.models.applicant import Applicant
 
 
-class LinkedInProfileSerializer(serializers.ModelSerializer):
+class ApplicantSerializer(serializers.ModelSerializer):
     class Meta:
-        model = LinkedInProfile
+        model = Applicant
         fields = [
             'url',
             'about',

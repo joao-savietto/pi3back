@@ -1,7 +1,7 @@
 from django.db import models
 
 
-class LinkedInProfile(models.Model):
+class Applicant(models.Model):
     """Stores scraped LinkedIn profile data"""
     url = models.URLField(max_length=255)
     about = models.TextField(blank=True, default='Carregando...')
@@ -15,7 +15,7 @@ class LinkedInProfile(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return f"LinkedIn Profile: {self.name}"
+        return f"Applicant: {self.name}"
 
     class Meta:
         ordering = ['name']

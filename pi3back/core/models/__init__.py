@@ -1,1 +1,1 @@
-from .linkedin_profile import LinkedInProfile
+from .applicant import Applicant
