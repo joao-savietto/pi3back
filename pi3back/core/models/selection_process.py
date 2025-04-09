@@ -3,12 +3,15 @@ from enum import Enum
 
 
 class ProcessCategory(Enum):
-    DEVELOPER = 'developer'
-    SALES = 'sales'
-    MARKETING = 'marketing'
-    MANAGEMENT = 'management'
-    QUALITY_ASSURANCE = 'quality_assurance'
-    IT_INFRA = 'it_infra'
+    ADMINISTRATIVE_FINANCIAL = 'administrative_financial'
+    COMMERCIAL = 'commercial'
+    COMMUNICATION_MARKETING = 'communication_marketing'
+    DEVELOPMENT = 'development'
+    INNOVATION = 'innovation'
+    PEOPLE = 'people'
+    PRODUCTS = 'products'
+    OPERATIONS = 'operations'
+    QUALITY = 'quality'
 
     @classmethod
     def choices(cls):
@@ -21,9 +24,9 @@ class SelectionProcess(models.Model):
     ended_at = models.DateTimeField(null=True, blank=True)
     is_ended = models.BooleanField(default=False)
     category = models.CharField(
-        max_length=20,
+        max_length=50,
         choices=ProcessCategory.choices(),
-        default=ProcessCategory.DEVELOPER.value
+        default=ProcessCategory.DEVELOPMENT.value
     )
 
     def __str__(self):
