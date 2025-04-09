@@ -1,5 +1,6 @@
 from rest_framework import viewsets
 from django.contrib.auth import get_user_model
+from pi3back.shared.permissions import UserPermissions
 from pi3back.core.models import Applicant, SelectionProcess
 from pi3back.core.api.serializers import (
     ApplicantSerializer,
@@ -34,6 +35,7 @@ class ApplicantViewSet(viewsets.ModelViewSet):
     queryset = Applicant.objects.all()
     serializer_class = ApplicantSerializer
     http_method_names = ['get', 'post', 'patch', 'delete']
+    permission_classes = [UserPermissions]
 
 
 @extend_schema_view(
