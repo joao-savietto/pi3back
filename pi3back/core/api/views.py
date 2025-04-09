@@ -1,6 +1,6 @@
 from rest_framework import viewsets
 from django.contrib.auth import get_user_model
-from pi3back.shared.permissions import UserPermissions
+from pi3back.shared.permissions import IsAuthenticated
 from pi3back.core.models import Applicant, SelectionProcess, Application
 from pi3back.core.api.serializers import (
     ApplicantSerializer,
@@ -36,7 +36,7 @@ class ApplicantViewSet(viewsets.ModelViewSet):
     queryset = Applicant.objects.all()
     serializer_class = ApplicantSerializer
     http_method_names = ['get', 'post', 'patch', 'delete']
-    permission_classes = [UserPermissions]
+    permission_classes = [IsAuthenticated]
 
 
 @extend_schema_view(
@@ -51,6 +51,7 @@ class ApplicantViewSet(viewsets.ModelViewSet):
 class SelectionProcessViewSet(viewsets.ModelViewSet):
     queryset = SelectionProcess.objects.all()
     serializer_class = SelectionProcessSerializer
+    permission_classes = [IsAuthenticated]
 
 
 @extend_schema_view(
@@ -66,3 +67,4 @@ class ApplicationViewSet(viewsets.ModelViewSet):
     queryset = Application.objects.all()
     serializer_class = ApplicationSerializer
     http_method_names = ['get', 'post', 'patch', 'delete']
+    permission_classes = [IsAuthenticated]
