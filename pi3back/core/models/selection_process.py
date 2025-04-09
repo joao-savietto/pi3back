@@ -34,4 +34,4 @@ class SelectionProcess(models.Model):
 
     class Meta:
         verbose_name_plural = "Selection Processes"
-        ordering = ['-created_at']
+        ordering = ['-created_at', 'category', 'is_ended']

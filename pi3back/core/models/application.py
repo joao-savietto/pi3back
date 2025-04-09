@@ -11,6 +11,9 @@ class ApplicationStep(Enum):
     DECLINED = "Declined"
     OFFER_PHASE = "Offer Phase"
     ONBOARDING = "Onboarding"
+    HUNTING = "Hunting"
+    DATABASE = "Database"
+    STAND_BY = "Stand By"
 
 
 class Application(models.Model):
