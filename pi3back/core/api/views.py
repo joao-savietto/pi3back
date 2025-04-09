@@ -1,4 +1,6 @@
 from rest_framework import viewsets
+from rest_framework.decorators import action
+from rest_framework.response import Response
 from django.contrib.auth import get_user_model
 from pi3back.shared.permissions import IsAuthenticated
 from pi3back.core.models import Applicant, SelectionProcess, Application
@@ -46,12 +48,22 @@ class ApplicantViewSet(viewsets.ModelViewSet):
     update=extend_schema(description='Atualiza um processo seletivo'),
     partial_update=extend_schema(
         description='Atualiza parcialmente um processo seletivo'
+    ),
+    applications=extend_schema(
+        description='Lista todas as aplicações de um processo seletivo'
     )
 )
 class SelectionProcessViewSet(viewsets.ModelViewSet):
     queryset = SelectionProcess.objects.all()
     serializer_class = SelectionProcessSerializer
     permission_classes = [IsAuthenticated]
+
+    @action(detail=True, methods=['get'])
+    def applications(self, request, pk=None):
+        selection_process = self.get_object()
+        applications = selection_process.applications.all()
+        serializer = ApplicationSerializer(applications, many=True)
+        return Response(serializer.data)
 
 
 @extend_schema_view(
