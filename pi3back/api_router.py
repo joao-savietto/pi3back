@@ -1,7 +1,11 @@
 from rest_framework.routers import DefaultRouter
 
 from pi3back.users.api.views import UserViewSet
-from pi3back.core.api.views import ApplicantViewSet, SelectionProcessViewSet
+from pi3back.core.api.views import (
+    ApplicantViewSet,
+    SelectionProcessViewSet,
+    ApplicationViewSet
+)
 
 router = DefaultRouter()
 
@@ -15,6 +19,11 @@ router.register(
     'selection-processes',
     SelectionProcessViewSet,
     basename='selection-processes'
+)
+router.register(
+    'applications',
+    ApplicationViewSet,
+    basename='applications'
 )
 
 app_name = 'api'

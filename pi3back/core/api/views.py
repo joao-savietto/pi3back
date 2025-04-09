@@ -1,10 +1,11 @@
 from rest_framework import viewsets
 from django.contrib.auth import get_user_model
 from pi3back.shared.permissions import UserPermissions
-from pi3back.core.models import Applicant, SelectionProcess
+from pi3back.core.models import Applicant, SelectionProcess, Application
 from pi3back.core.api.serializers import (
     ApplicantSerializer,
-    SelectionProcessSerializer
+    SelectionProcessSerializer,
+    ApplicationSerializer
 )
 from drf_spectacular.utils import (
     extend_schema_view,
@@ -50,3 +51,18 @@ class ApplicantViewSet(viewsets.ModelViewSet):
 class SelectionProcessViewSet(viewsets.ModelViewSet):
     queryset = SelectionProcess.objects.all()
     serializer_class = SelectionProcessSerializer
+
+
+@extend_schema_view(
+    list=extend_schema(description='Lista todas as aplicações'),
+    retrieve=extend_schema(description='Recupera uma aplicação por ID'),
+    create=extend_schema(description='Cria uma nova aplicação'),
+    update=extend_schema(description='Atualiza uma aplicação'),
+    partial_update=extend_schema(
+        description='Atualiza parcialmente uma aplicação'
+    )
+)
+class ApplicationViewSet(viewsets.ModelViewSet):
+    queryset = Application.objects.all()
+    serializer_class = ApplicationSerializer
+    http_method_names = ['get', 'post', 'patch', 'delete']
