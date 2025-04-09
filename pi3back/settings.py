@@ -176,8 +176,8 @@ REST_FRAMEWORK = {
 }
 
 SPECTACULAR_SETTINGS = {
-    'TITLE': 'Backend PI-1',
-    'DESCRIPTION': 'Documentação do back-end do primeiro PI',
+    'TITLE': 'Backend PI-3',
+    'DESCRIPTION': 'Documentação do back-end do terceiro PI',
     'VERSION': '1.0.0',
     'SERVE_INCLUDE_SCHEMA': False,
 }
