@@ -1,5 +1,6 @@
 import random
 
+# import chromedriver_autoinstaller
 from linkedin_scraper import Person, actions
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
@@ -56,7 +57,14 @@ class TalentScrapper:
             "useAutomationExtension", False
         )  # Disable automation extension
 
+        # Add a unique user data directory to avoid conflicts
+        # self.chrome_options.add_argument(
+        #     f"--user-data-dir=/tmp/chrome_user_data_"
+        #     f"{random.randint(0, 1000000)}"
+        # )
+
         # Initialize WebDriver with configured options
+        # chromedriver_autoinstaller.install()
         self.driver = webdriver.Chrome(options=self.chrome_options)
 
         # Execute JavaScript to hide WebDriver flag

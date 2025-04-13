@@ -1,10 +1,6 @@
 #!/bin/bash
 
 set -e
-conda init
-source ~/.bashrc
-
-conda activate pi3
 
 wait_for_db() {
   local db_host="$1"

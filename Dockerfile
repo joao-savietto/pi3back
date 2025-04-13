@@ -1,12 +1,12 @@
-# Use the official Miniconda image as the base image
-FROM continuumio/miniconda3:latest
+FROM python:3.11.12-slim-bookworm
+
 
 # Expose port 8000
 EXPOSE 8000
 
 # Set environment variables
-ENV PYTHONDONTWRITEBYTECODE 1
-ENV PYTHONUNBUFFERED 1
+ENV PYTHONDONTWRITEBYTECODE=1
+ENV PYTHONUNBUFFERED=1
 
 # Set the working directory
 WORKDIR /app
@@ -23,16 +23,26 @@ RUN apt-get update && apt-get install -y \
     build-essential \
     pkg-config \
     default-mysql-client \
+    wget \
+    unzip \
+    curl \
     && apt-get clean
 
-# Copy the requirements.txt file
-COPY requirements.txt /app/
+# Install Google Chrome and ChromeDriver
+# Dockerfile
+RUN wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add - \
+    && sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google-chrome.list'
 
-# Create a Conda environment and install dependencies
-RUN conda create -n pi3 python=3.11.9 -y && \
-    conda run -n pi3 pip install --upgrade pip && \
-    conda run -n pi3 pip install -r requirements.txt && \
-    conda install -n pi3 conda-forge::python-chromedriver-binary
+RUN apt-get update && apt-get install -y \
+google-chrome-stable \
+libglib2.0-0 \
+&& rm -rf /var/lib/apt/lists/*
 
-# Set the entrypoint script
+RUN DRIVER_VERSION=$(curl -sS chromedriver.storage.googleapis.com/LATEST_RELEASE) && \
+wget https://chromedriver.storage.googleapis.com/$DRIVER_VERSION/chromedriver_linux64.zip && \
+unzip chromedriver_linux64.zip -d /usr/bin/ && rm chromedriver_linux64.zip && chmod +x /usr/bin/chromedriver
+
+ENV CHROMEDRIVER=/usr/bin/chromedriver
+RUN pip install -r requirements.txt
+
 ENTRYPOINT ["/app/start_django.sh"]

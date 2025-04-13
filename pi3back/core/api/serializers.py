@@ -6,6 +6,7 @@ class ApplicantSerializer(serializers.ModelSerializer):
     class Meta:
         model = Applicant
         fields = [
+            'id',
             'url',
             'about',
             'name',
@@ -41,7 +42,7 @@ class SelectionProcessSerializer(serializers.ModelSerializer):
             'is_ended',
             'category'
         ]
-        read_only_fields = ['created_at']
+        read_only_fields = ['created_at', 'ended_at']
 
 
 class ApplicationSerializer(serializers.ModelSerializer):
@@ -55,7 +56,5 @@ class ApplicationSerializer(serializers.ModelSerializer):
             'applicant_data',
             'selection_process',
             'current_step',
-            'created_at',
-            'updated_at'
         ]
         read_only_fields = ['created_at', 'updated_at', 'applicant_data']
