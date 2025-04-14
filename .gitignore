@@ -4,3 +4,4 @@
 *.ipynb
 refactor.py
 celerybeat-schedule*
+.aider*
