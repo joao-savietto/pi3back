@@ -47,15 +47,16 @@ class TalentScrapper:
         self.chrome_options.add_argument(
             f"user-agent={random.choice(user_agents)}"
         )  # Randomize user agent
-        self.chrome_options.add_argument(
-            "--disable-blink-features=AutomationControlled"
-        )  # Disable automation flags
-        self.chrome_options.add_experimental_option(
-            "excludeSwitches", ["enable-automation"]
-        )  # Hide automation switches
-        self.chrome_options.add_experimental_option(
-            "useAutomationExtension", False
-        )  # Disable automation extension
+        self.chrome_options = Options()
+        self.chrome_options.add_argument("--headless=new")  # Use new headless mode
+        self.chrome_options.add_argument("--no-sandbox")     # Required in Docker
+        self.chrome_options.add_argument("--disable-dev-shm-usage")
+        self.chrome_options.add_argument("--disable-gpu")
+        self.chrome_options.add_argument("--window-size=1920,1080")
+        self.chrome_options.add_argument(f"user-agent={random.choice(user_agents)}")
+        self.chrome_options.add_argument("--disable-blink-features=AutomationControlled")
+        self.chrome_options.add_experimental_option("excludeSwitches", ["enable-automation"])
+        self.chrome_options.add_experimental_option("useAutomationExtension", False)
 
         # Add a unique user data directory to avoid conflicts
         # self.chrome_options.add_argument(

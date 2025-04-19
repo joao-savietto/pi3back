@@ -7,9 +7,8 @@ markdown==3.6
 django-filter==24.1
 drf-spectacular==0.27.1
 gunicorn==21.2.0
-mysqlclient==2.2.4
+mysqlclient==2.2.7
 django-environ==0.11.2
 djangorestframework-simplejwt==5.3.1
 django-cors-headers==4.3.1
 linkedin-scraper==2.11.5
-chromedriver-autoinstaller==0.6.4
