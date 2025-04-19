@@ -1,7 +1,6 @@
 from django.contrib.auth import get_user_model
 from drf_spectacular.utils import extend_schema, extend_schema_view
 from rest_framework import status, viewsets
-from rest_framework.decorators import action
 from rest_framework.response import Response
 
 from pi3back.core.models import Applicant
@@ -27,7 +26,11 @@ class ApplicantViewSet(viewsets.ModelViewSet):
 
     def _trigger_scraper(self, applicant):
         user = self.request.user
-        if user.linkedin_user and user.linkedin_password and applicant.url:
+        if (
+            user.linkedin_user
+            and user.linkedin_password
+            and applicant.url
+        ):
             scrape_and_update_applicant.delay(
                 linkedin_url_profile=applicant.url,
                 username=user.linkedin_user,
