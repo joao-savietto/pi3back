@@ -1,11 +1,9 @@
 from rest_framework.routers import DefaultRouter
 
 from pi3back.users.api.views import UserViewSet
-from pi3back.core.api.views import (
-    ApplicantViewSet,
-    SelectionProcessViewSet,
-    ApplicationViewSet
-)
+from pi3back.core.api.views import ApplicantViewSet
+from pi3back.core.api.views import SelectionProcessViewSet
+from pi3back.core.api.views import ApplicationViewSet
 
 router = DefaultRouter()
 
