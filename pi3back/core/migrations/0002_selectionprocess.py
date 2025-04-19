@@ -6,23 +6,45 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('core', '0001_initial'),
+        ("core", "0001_initial"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='SelectionProcess',
+            name="SelectionProcess",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('description', models.TextField()),
-                ('created_at', models.DateTimeField(auto_now_add=True)),
-                ('ended_at', models.DateTimeField(blank=True, null=True)),
-                ('is_ended', models.BooleanField(default=False)),
-                ('category', models.CharField(choices=[('developer', 'Developer'), ('sales', 'Sales'), ('marketing', 'Marketing'), ('management', 'Management'), ('quality_assurance', 'Quality Assurance'), ('it_infra', 'It Infra')], default='developer', max_length=20)),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("description", models.TextField()),
+                ("created_at", models.DateTimeField(auto_now_add=True)),
+                ("ended_at", models.DateTimeField(blank=True, null=True)),
+                ("is_ended", models.BooleanField(default=False)),
+                (
+                    "category",
+                    models.CharField(
+                        choices=[
+                            ("developer", "Developer"),
+                            ("sales", "Sales"),
+                            ("marketing", "Marketing"),
+                            ("management", "Management"),
+                            ("quality_assurance", "Quality Assurance"),
+                            ("it_infra", "It Infra"),
+                        ],
+                        default="developer",
+                        max_length=20,
+                    ),
+                ),
             ],
             options={
-                'verbose_name_plural': 'Selection Processes',
-                'ordering': ['-created_at'],
+                "verbose_name_plural": "Selection Processes",
+                "ordering": ["-created_at"],
             },
         ),
     ]

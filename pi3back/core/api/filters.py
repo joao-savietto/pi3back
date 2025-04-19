@@ -3,8 +3,8 @@ from ...users.models import User
 
 
 class UserFilter(filters.FilterSet):
-    email = filters.CharFilter(lookup_expr='exact')
+    email = filters.CharFilter(lookup_expr="exact")
 
     class Meta:
         model = User
-        fields = ['email']
+        fields = ["email"]

@@ -3,9 +3,10 @@ from django.db import models
 
 class Applicant(models.Model):
     """Stores scraped LinkedIn profile data"""
+
     url = models.URLField(max_length=255)
-    about = models.TextField(blank=True, default='Carregando...')
-    name = models.CharField(max_length=255, default='Carregando...')
+    about = models.TextField(blank=True, default="Carregando...")
+    name = models.CharField(max_length=255, default="Carregando...")
     experiences = models.JSONField(default=list)
     educations = models.JSONField(default=list)
     interests = models.JSONField(default=list)
@@ -18,4 +19,4 @@ class Applicant(models.Model):
         return f"Applicant: {self.name}"
 
     class Meta:
-        ordering = ['name']
+        ordering = ["name"]

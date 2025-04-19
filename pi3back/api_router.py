@@ -7,22 +7,14 @@ from pi3back.core.api.views import ApplicationViewSet
 
 router = DefaultRouter()
 
-router.register('users', UserViewSet, basename='users')
+router.register("users", UserViewSet, basename="users")
+router.register("applicants", ApplicantViewSet, basename="applicants")
 router.register(
-    'applicants',
-    ApplicantViewSet,
-    basename='applicants'
-)
-router.register(
-    'selection-processes',
+    "selection-processes",
     SelectionProcessViewSet,
-    basename='selection-processes'
+    basename="selection-processes",
 )
-router.register(
-    'applications',
-    ApplicationViewSet,
-    basename='applications'
-)
+router.register("applications", ApplicationViewSet, basename="applications")
 
-app_name = 'api'
+app_name = "api"
 urlpatterns = router.urls

@@ -7,27 +7,40 @@ class Migration(migrations.Migration):
 
     initial = True
 
-    dependencies = [
-    ]
+    dependencies = []
 
     operations = [
         migrations.CreateModel(
-            name='Applicant',
+            name="Applicant",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('url', models.URLField(max_length=255)),
-                ('about', models.TextField(blank=True, default='Carregando...')),
-                ('name', models.CharField(default='Carregando...', max_length=255)),
-                ('experiences', models.JSONField(default=list)),
-                ('educations', models.JSONField(default=list)),
-                ('interests', models.JSONField(default=list)),
-                ('accomplishments', models.JSONField(default=list)),
-                ('contacts', models.JSONField(default=list)),
-                ('created_at', models.DateTimeField(auto_now_add=True)),
-                ('updated_at', models.DateTimeField(auto_now=True)),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("url", models.URLField(max_length=255)),
+                (
+                    "about",
+                    models.TextField(blank=True, default="Carregando..."),
+                ),
+                (
+                    "name",
+                    models.CharField(default="Carregando...", max_length=255),
+                ),
+                ("experiences", models.JSONField(default=list)),
+                ("educations", models.JSONField(default=list)),
+                ("interests", models.JSONField(default=list)),
+                ("accomplishments", models.JSONField(default=list)),
+                ("contacts", models.JSONField(default=list)),
+                ("created_at", models.DateTimeField(auto_now_add=True)),
+                ("updated_at", models.DateTimeField(auto_now=True)),
             ],
             options={
-                'ordering': ['name'],
+                "ordering": ["name"],
             },
         ),
     ]

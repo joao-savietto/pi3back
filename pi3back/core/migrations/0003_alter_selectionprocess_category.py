@@ -6,13 +6,27 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('core', '0002_selectionprocess'),
+        ("core", "0002_selectionprocess"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='selectionprocess',
-            name='category',
-            field=models.CharField(choices=[('administrative_financial', 'Administrative Financial'), ('commercial', 'Commercial'), ('communication_marketing', 'Communication Marketing'), ('development', 'Development'), ('innovation', 'Innovation'), ('people', 'People'), ('products', 'Products'), ('operations', 'Operations'), ('quality', 'Quality')], default='development', max_length=50),
+            model_name="selectionprocess",
+            name="category",
+            field=models.CharField(
+                choices=[
+                    ("administrative_financial", "Administrative Financial"),
+                    ("commercial", "Commercial"),
+                    ("communication_marketing", "Communication Marketing"),
+                    ("development", "Development"),
+                    ("innovation", "Innovation"),
+                    ("people", "People"),
+                    ("products", "Products"),
+                    ("operations", "Operations"),
+                    ("quality", "Quality"),
+                ],
+                default="development",
+                max_length=50,
+            ),
         ),
     ]

@@ -7,24 +7,71 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('core', '0003_alter_selectionprocess_category'),
+        ("core", "0003_alter_selectionprocess_category"),
     ]
 
     operations = [
         migrations.AlterModelOptions(
-            name='selectionprocess',
-            options={'ordering': ['-created_at', 'category', 'is_ended'], 'verbose_name_plural': 'Selection Processes'},
+            name="selectionprocess",
+            options={
+                "ordering": ["-created_at", "category", "is_ended"],
+                "verbose_name_plural": "Selection Processes",
+            },
         ),
         migrations.CreateModel(
-            name='Application',
+            name="Application",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('current_step', models.CharField(choices=[('HR Interview', 'HR Interview'), ('Technical Challenge', 'Technical Challenge'), ('Leadership Interview', 'Leadership Interview'), ('Technical Challenge Not Submitted', 'Technical Challenge Not Submitted'), ('Rejected', 'Rejected'), ('Declined', 'Declined'), ('Offer Phase', 'Offer Phase'), ('Onboarding', 'Onboarding'), ('Hunting', 'Hunting'), ('Database', 'Database'), ('Stand By', 'Stand By')], default='HR Interview', max_length=50)),
-                ('applicant', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='applications', to='core.applicant')),
-                ('selection_process', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='applications', to='core.selectionprocess')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "current_step",
+                    models.CharField(
+                        choices=[
+                            ("HR Interview", "HR Interview"),
+                            ("Technical Challenge", "Technical Challenge"),
+                            ("Leadership Interview", "Leadership Interview"),
+                            (
+                                "Technical Challenge Not Submitted",
+                                "Technical Challenge Not Submitted",
+                            ),
+                            ("Rejected", "Rejected"),
+                            ("Declined", "Declined"),
+                            ("Offer Phase", "Offer Phase"),
+                            ("Onboarding", "Onboarding"),
+                            ("Hunting", "Hunting"),
+                            ("Database", "Database"),
+                            ("Stand By", "Stand By"),
+                        ],
+                        default="HR Interview",
+                        max_length=50,
+                    ),
+                ),
+                (
+                    "applicant",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="applications",
+                        to="core.applicant",
+                    ),
+                ),
+                (
+                    "selection_process",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="applications",
+                        to="core.selectionprocess",
+                    ),
+                ),
             ],
             options={
-                'unique_together': {('applicant', 'selection_process')},
+                "unique_together": {("applicant", "selection_process")},
             },
         ),
     ]

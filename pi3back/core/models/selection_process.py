@@ -3,19 +3,21 @@ from enum import Enum
 
 
 class ProcessCategory(Enum):
-    ADMINISTRATIVE_FINANCIAL = 'administrative_financial'
-    COMMERCIAL = 'commercial'
-    COMMUNICATION_MARKETING = 'communication_marketing'
-    DEVELOPMENT = 'development'
-    INNOVATION = 'innovation'
-    PEOPLE = 'people'
-    PRODUCTS = 'products'
-    OPERATIONS = 'operations'
-    QUALITY = 'quality'
+    ADMINISTRATIVE_FINANCIAL = "administrative_financial"
+    COMMERCIAL = "commercial"
+    COMMUNICATION_MARKETING = "communication_marketing"
+    DEVELOPMENT = "development"
+    INNOVATION = "innovation"
+    PEOPLE = "people"
+    PRODUCTS = "products"
+    OPERATIONS = "operations"
+    QUALITY = "quality"
 
     @classmethod
     def choices(cls):
-        return [(key.value, key.name.replace('_', ' ').title()) for key in cls]
+        return [
+            (key.value, key.name.replace("_", " ").title()) for key in cls
+        ]
 
 
 class SelectionProcess(models.Model):
@@ -26,7 +28,7 @@ class SelectionProcess(models.Model):
     category = models.CharField(
         max_length=50,
         choices=ProcessCategory.choices(),
-        default=ProcessCategory.DEVELOPMENT.value
+        default=ProcessCategory.DEVELOPMENT.value,
     )
 
     def __str__(self):
@@ -34,4 +36,4 @@ class SelectionProcess(models.Model):
 
     class Meta:
         verbose_name_plural = "Selection Processes"
-        ordering = ['-created_at', 'category', 'is_ended']
+        ordering = ["-created_at", "category", "is_ended"]
