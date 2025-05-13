@@ -4,7 +4,7 @@ from django.db import models
 class Applicant(models.Model):
     """Stores scraped LinkedIn profile data"""
 
-    url = models.URLField(max_length=255)
+    url = models.URLField(max_length=255, null=True, blank=True)
     about = models.TextField(blank=True, default="Carregando...")
     name = models.CharField(max_length=255, default="Carregando...")
     experiences = models.JSONField(default=list)
